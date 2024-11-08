@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+
+    /* JSX */
+    "jsx": "react",
+    "jsxFactory": "jsxFactory",
+    "jsxFragmentFactory": "Fragment",
+
+    /* Paths */
+    "baseUrl": ".", // This must be specified if "paths" is specified
+    "paths": {
+      "components": ["src/components"],
+      "layouts": ["src/components/layouts"],
+      "variables": ["src/variables"],
+      "pages": ["src/pages"],
+      "generics": ["src/generics"],
+      "types": ["src/types"],
+      "utils": ["src/utils"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
