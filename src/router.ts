@@ -3,17 +3,13 @@ import {
   NOT_FOUND_RESPONSE,
   importModule,
 } from "./routerHelpers";
-import {
-  PAGES_DIR,
-  ROUTER_STYLE,
-} from "../../../sites/site-baseline/src/constants";
 
 import { handleGetAssets } from ".";
 import { logger } from "@gotpop-platform/package-logger";
 
 export const router = new Bun.FileSystemRouter({
-  style: ROUTER_STYLE,
-  dir: PAGES_DIR,
+  style: "nextjs",
+  dir: process.cwd() + "/src/pages",
 });
 
 const assetExtensions = new Set([
