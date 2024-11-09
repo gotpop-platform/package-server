@@ -1,6 +1,6 @@
 {
   "name": "@gotpop-platform/package-server",
-  "version": "1.0.03",
+  "version": "1.0.04",
   "description": "A JSX factory for creating JSX elements",
   "main": "src/index.ts",
   "scripts": {
@@ -31,6 +31,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@gotpop-platform/package-logger": "^1.0.10",
     "dotenv": "^16.4.5"
   }
 }
