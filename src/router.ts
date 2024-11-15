@@ -1,35 +1,17 @@
 import { INTERNAL_SERVER_ERROR_RESPONSE, NOT_FOUND_RESPONSE, importModule } from "./routerHelpers"
 
-import { handleGetAssets } from "."
 import { logger } from "@gotpop-platform/package-logger"
 
-export const router = new Bun.FileSystemRouter({
+const router = new Bun.FileSystemRouter({
   style: "nextjs",
   dir: process.cwd() + "/src/pages",
 })
 
-const assetExtensions = new Set(["jpg", "jpeg", "png", "gif", "svg", "css", "js", "woff", "woff2"])
-
-export async function servePagesOrAssets(data: {
+export const handleGetPages = async <T>(data: {
   request: Request
   allContent: Map<string, any>
   scriptPaths: Record<string, string>[]
-}) {
-  const url = new URL(data.request.url)
-  const extension = url.pathname.split(".").pop()?.toLowerCase()
-
-  if (extension && assetExtensions.has(extension)) {
-    console.log("url ****** :", url)
-    return handleGetAssets(url)
-  }
-
-  return handleGetPages(data)
-}
-
-export const handleGetPages = async (data: {
-  request: Request
-  allContent: Map<string, any>
-  scriptPaths: Record<string, string>[]
+  Config: T
 }): Promise<Response> => {
   try {
     const route = router.match(data.request)
@@ -53,11 +35,16 @@ export const handleGetPages = async (data: {
       return INTERNAL_SERVER_ERROR_RESPONSE
     }
 
-    const response = await module.default(route.query).catch((error: Error) => {
-      logger({ msg: String(error), styles: ["bold", "red"] })
+    const response = await module
+      .default({
+        ...data,
+        query: route.params,
+      })
+      .catch((error: Error) => {
+        logger({ msg: String(error), styles: ["bold", "red"] })
 
-      return null
-    })
+        return null
+      })
 
     if (!response) {
       return NOT_FOUND_RESPONSE

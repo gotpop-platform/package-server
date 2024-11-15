@@ -1,29 +1,18 @@
+import { file } from "bun"
 import { join } from "path"
+import { logger } from "@gotpop-platform/package-logger"
 
-export function handleGetAssets(url: URL) {
-  const pathRenamedToPublic = join(process.cwd(), "dist", url.pathname)
-  console.log("pathRenamedToPublic :", pathRenamedToPublic)
-  const file = Bun.file(pathRenamedToPublic)
+export async function handleStaticAssets({ path, publicDir }: { path: string; publicDir: string }) {
+  const fullPath = join(process.cwd(), publicDir, path)
 
-  const headers = {
-    "Cache-Control": "max-age=31536000",
+  try {
+    const asset = file(fullPath)
+
+    if (await asset.exists()) {
+      return new Response(asset)
+    }
+  } catch (error) {
+    logger({ msg: `Asset not found: ${path}`, styles: ["red"] })
   }
-
-  return new Response(file ?? "Not Found", {
-    status: file ? 200 : 404,
-    headers: headers ?? {},
-  })
+  return null
 }
-
-// export async function handleStaticAssets(path: string) {
-//   const fullPath = join(process.cwd(), PUBLIC_DIR, path)
-//   try {
-//     const asset = file(fullPath)
-//     if (await asset.exists()) {
-//       return new Response(asset)
-//     }
-//   } catch (error) {
-//     logger({ msg: `Asset not found: ${path}`, styles: ["red"] })
-//   }
-//   return null
-// }
