@@ -19,6 +19,7 @@ export async function servePagesOrAssets(data: {
   const extension = url.pathname.split(".").pop()?.toLowerCase()
 
   if (extension && assetExtensions.has(extension)) {
+    console.log("url ****** :", url)
     return handleGetAssets(url)
   }
 

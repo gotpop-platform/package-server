@@ -1,7 +1,8 @@
 import { join } from "path"
 
 export function handleGetAssets(url: URL) {
-  const pathRenamedToPublic = join(process.cwd(), "public", url.pathname)
+  const pathRenamedToPublic = join(process.cwd(), "dist", url.pathname)
+  console.log("pathRenamedToPublic :", pathRenamedToPublic)
   const file = Bun.file(pathRenamedToPublic)
 
   const headers = {
@@ -13,3 +14,16 @@ export function handleGetAssets(url: URL) {
     headers: headers ?? {},
   })
 }
+
+// export async function handleStaticAssets(path: string) {
+//   const fullPath = join(process.cwd(), PUBLIC_DIR, path)
+//   try {
+//     const asset = file(fullPath)
+//     if (await asset.exists()) {
+//       return new Response(asset)
+//     }
+//   } catch (error) {
+//     logger({ msg: `Asset not found: ${path}`, styles: ["red"] })
+//   }
+//   return null
+// }
