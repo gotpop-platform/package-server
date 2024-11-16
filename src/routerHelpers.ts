@@ -14,7 +14,7 @@ export const getBaseDomain = (hostname: string): string => {
   return hostname.startsWith("www.") ? hostname.substring(4) : hostname
 }
 
-export const importModule = async (filePath: string): Promise<any> => {
+export const importModule = async <T>(filePath: string): Promise<T | null> => {
   try {
     return await import(filePath)
   } catch (error) {

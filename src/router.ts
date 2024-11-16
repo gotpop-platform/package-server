@@ -5,10 +5,12 @@ import { logger } from "@gotpop-platform/package-logger"
 interface PageProps {
   request: Request
   allContent: Map<string, any>
-  scriptPaths: {
-    [key: string]: string
-  }[]
+  scriptPaths: Record<string, string>[]
   Config: { PAGES: { DIR: string } }
+}
+
+interface ModuleType {
+  default: (props: PageProps & { query: Record<string, string> }) => Promise<string>
 }
 
 export const handleGetPages = async (data: PageProps): Promise<Response> => {
@@ -24,7 +26,7 @@ export const handleGetPages = async (data: PageProps): Promise<Response> => {
       return NOT_FOUND_RESPONSE
     }
 
-    const module = await importModule(route.filePath)
+    const module = await importModule<ModuleType>(route.filePath)
 
     if (!module) {
       return NOT_FOUND_RESPONSE
