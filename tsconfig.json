@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
+    "target": "ESNext",
+    "module": "ESNext", // Changed from NodeNext
+    "moduleResolution": "bundler", // Add this for Bun
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
