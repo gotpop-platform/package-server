@@ -1,24 +1,25 @@
 import { INTERNAL_SERVER_ERROR_RESPONSE, NOT_FOUND_RESPONSE, importModule } from "./routerHelpers"
 
+import { join } from "path"
 import { logger } from "@gotpop-platform/package-logger"
 
 interface PageProps {
   request: Request
-  allContent: Map<string, any>
+  allContent: any
   scriptPaths: Record<string, string>[]
-  Config: { PAGES: { DIR: string } }
 }
 
 interface ModuleType {
   default: (props: PageProps & { query: Record<string, string> }) => Promise<string>
 }
 
-export const handleGetPages = async (data: PageProps): Promise<Response> => {
-  const router = new Bun.FileSystemRouter({
-    style: "nextjs",
-    dir: data.Config.PAGES.DIR,
-  })
+const { env } = process
+const router = new Bun.FileSystemRouter({
+  style: "nextjs",
+  dir: join(process.cwd(), env.npm_package_config_dir_pages || "./src/pages"),
+})
 
+export const handleGetPages = async (data: PageProps): Promise<Response> => {
   try {
     const route = router.match(data.request)
 
