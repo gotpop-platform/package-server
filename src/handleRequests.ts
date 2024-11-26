@@ -1,10 +1,11 @@
+import type { Server } from "bun"
 import { env } from "process"
 import { handleGetPages } from "./router"
 import { handleStaticAssets } from "./handleAssets"
 import { logger } from "@gotpop-platform/package-logger"
 import store from "./store"
 
-export async function handleRequests({ request, server }: { request: Request; server: any }) {
+export async function handleRequests({ request, server }: { request: Request; server: Server }) {
   const url = new URL(request.url)
 
   // Websocket upgrade

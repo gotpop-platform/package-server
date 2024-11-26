@@ -1,5 +1,4 @@
 import { BuildOutput } from "bun"
-import { ContentMap } from "types"
 import { contentMap } from "@gotpop-platform/package-markdown"
 import { createCopyFilesPlugin } from "@gotpop-platform/bun-plugin-copy-assets"
 import { logger } from "@gotpop-platform/package-logger"
