@@ -9,6 +9,7 @@ export const buildConfig = {
     "src/assets/js/script.ts",
     "src/assets/js/worklets/worklet.grid.ts",
     "src/assets/js/worklets/worklet.hero.ts",
+    // "src/assets/styles/index.css",
   ],
   outdir: "dist",
   root: "./src",

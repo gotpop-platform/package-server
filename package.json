@@ -1,6 +1,6 @@
 {
   "name": "@gotpop-platform/package-server",
-  "version": "1.0.094",
+  "version": "1.0.095",
   "description": "A JSX factory for creating JSX elements",
   "main": "src/index.ts",
   "type": "module",
@@ -38,7 +38,7 @@
   "dependencies": {
     "@gotpop-platform/bun-plugin-copy-assets": "^1.0.9",
     "@gotpop-platform/package-logger": "latest",
-    "@gotpop-platform/package-markdown": "^1.0.22",
+    "@gotpop-platform/package-markdown": "1.0.25",
     "dotenv": "^16.4.5"
   }
 }
